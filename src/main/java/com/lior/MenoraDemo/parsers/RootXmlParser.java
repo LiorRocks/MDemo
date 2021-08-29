@@ -3,6 +3,7 @@ package com.lior.MenoraDemo.parsers;
 import com.lior.MenoraDemo.model.RootDocument;
 import com.thoughtworks.xstream.XStream;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,20 +11,27 @@ import java.nio.file.Path;
 public class RootXmlParser {
 
     private XStream xStream;
-    private Path filePath;
+    private File filePath;
 
     public RootXmlParser() {
         xStream = new XStream();
     }
 
-    public RootXmlParser(Path filePath) {
+    public RootXmlParser(File filePath) {
         xStream = new XStream();
         this.filePath = filePath;
     }
 
-    public RootDocument parse() throws IOException {
-        String xml = new String(Files.readAllBytes(filePath));
-        return (RootDocument) xStream.fromXML(xml);
+    public RootDocument parse() {
+        String xml = null;
+        try {
+            xml = new String(Files.readAllBytes(filePath.toPath()));
+            return (RootDocument) xStream.fromXML(xml);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public XStream getXStream() {
@@ -34,11 +42,11 @@ public class RootXmlParser {
         this.xStream = xStream;
     }
 
-    public Path getFilePath() {
+    public File getFilePath() {
         return filePath;
     }
 
-    public void setFilePath(Path filePath) {
+    public void setFilePath(File filePath) {
         this.filePath = filePath;
     }
 }

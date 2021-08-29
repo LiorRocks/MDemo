@@ -1,12 +1,22 @@
 package com.lior.MenoraDemo.model;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "events")
 public class Event {
+    @Column(name = "id")
+    @Id
+    private int _id;
+    @Column(name = "uuid")
     private UUID id;
+    @Column(name = "eventType")
     private EventTypeEnum type;
+    @Column(name = "insureId")
     private long insuredId;
+    @OneToMany
     private List<Product> products;
 
     public Event() {

@@ -1,11 +1,24 @@
 package com.lior.MenoraDemo.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @Column(name = "id")
+    private int _id;
+    @Column(name = "productType")
     private ProductTypeEnum type;
+    @Column(name = "price")
     private int price;
+    @Column(name = "startDate")
     private Date startDate;
+    @Column(name = "endDate")
     private Date endDate;
 
     public Product() {
